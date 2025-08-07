@@ -35,6 +35,7 @@ using namespace std;
  namespace file = viper::file;
 
 int main(int argc, char* argv[]) {
+	viper::Scene scene;
 
 	// Get current directory path
 	cout << "Directory Operations:\n";
@@ -42,12 +43,12 @@ int main(int argc, char* argv[]) {
 
 	// Set current directory path (current path + "Assets")
 	cout << "Setting directory to 'Assets'...\n";
-	viper::file::SetCurrentDirectory("Assets");
-	cout << "New directory: " << viper::file::GetCurrentDirectory() << "\n\n";
+	file::SetCurrentDirectory("Assets");
+	cout << "New directory: " << file::GetCurrentDirectory() << "\n\n";
 
 	// Get filenames in the current directory
 	cout << "Files in Directory:\n";
-	auto filenames = viper::file::GetFilesInDirectory(viper::file::GetCurrentDirectory());
+	auto filenames = file::GetFilesInDirectory(file::GetCurrentDirectory());
 	for (const auto& filename : filenames) {
 		cout << filename << "\n";
 	}
@@ -78,6 +79,7 @@ int main(int argc, char* argv[]) {
 
 	//Initialize Engine Systems
 	viper::GetEngine().Initialize();
+	scene.Update(TIME.GetDeltaTime()); // Draw the scene
 
 	//Create Audio System
 
@@ -100,7 +102,7 @@ int main(int argc, char* argv[]) {
 
 	shared_ptr<viper::Model> model = make_shared<viper::Model>(verts, viper::vec3{ 255, 255, 255 });
 
-	viper::Scene scene;
+
 	for (int i = 0; i < 10; i++) {
 		viper::Transform transform{ viper::vec2{ ran::getReal() * 1280, ran::getReal() * 1024}, 0.0f, 10.0f };
 		unique_ptr<Player> player = make_unique<Player>(transform, model);
@@ -132,6 +134,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		viper::GetEngine().Update(); // Update the engine time
+		game->Update(TIME.GetDeltaTime());
 
 		if (INPUT.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 

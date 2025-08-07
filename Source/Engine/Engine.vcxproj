@@ -170,6 +170,7 @@
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\Text.cpp" />
+    <ClCompile Include="Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\AudioSystem.h" />
@@ -189,7 +190,10 @@
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\Text.h" />
+    <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources\Resource.h" />
+    <ClInclude Include="Resources\ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

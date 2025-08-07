@@ -21,9 +21,9 @@ namespace viper {
 		void Update();
 		void Draw();
 
-		Renderer& GetRenderer() const { return *_renderer; }
-		as& GetAudio() const { return *_audio; }
-		is& GetInput() const { return *_input; }
+		as& GetAudio() { return *_audio; }
+		is& GetInput() { return *_input; }
+		Renderer& GetRenderer()  { return *_renderer; }
 
 		Time& GetTime() { return _time; }
 

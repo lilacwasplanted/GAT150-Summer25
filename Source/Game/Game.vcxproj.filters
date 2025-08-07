@@ -27,5 +27,14 @@
     <ClInclude Include="Game\Enemy.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Rocket.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceGame.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

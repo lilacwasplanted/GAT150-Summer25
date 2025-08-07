@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Texture.h"
 #include <SDL3/SDL.h>
 	using namespace std;
 
@@ -60,6 +61,30 @@
 		void Renderer::DrawPoint(float x, float y)
 		{
 			SDL_RenderPoint(_renderer, x, y);
+		}
+		void Renderer::DrawTexture(Texture* texture, float x, float y)
+		{
+			vec2 size = texture->GetSize();
+
+			SDL_FRect destRect;
+			destRect.x = x;
+			destRect.y = y;
+			destRect.w = size.x;
+			destRect.h = size.y;
+
+			// https://wiki.libsdl.org/SDL3/SDL_RenderTexture
+			SDL_RenderTexture(_renderer, texture->_texture, NULL, &destRect);
+		}
+
+		void Renderer::DrawTexture(Texture* texture, float x, float y, float angle, float scale)
+		{
+			vec2 size = texture->GetSize();
+
+			SDL_FRect destRect;
+			destRect.w = size.x * scale;
+			destRect.h = size.y * scale;
+			destRect.x = x - destRect.w * 0.5f;
+			destRect.y = y - destRect.h * 0.5f;
 		}
 
 		void Renderer::Clear()
