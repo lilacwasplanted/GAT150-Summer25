@@ -13,8 +13,8 @@ namespace viper {
 		//iterate the all the points, draw line;
 		for (int i = 0; i < _verts.size() - 1; i++)
 		{
-			vec2 p1 = (_verts[i].Rotate(rotation) * scale) + position ;
-			vec2 p2 =( _verts[i + 1].Rotate(rotation) * scale) + position;
+			vec2 p1 = (_verts[i].Rotate(math::degToRad(rotation)) * scale) + position;
+			vec2 p2 = (_verts[i + 1].Rotate(math::degToRad(rotation)) * scale) + position;
 
 			renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
 		}

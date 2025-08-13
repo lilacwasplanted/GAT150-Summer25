@@ -23,7 +23,7 @@ namespace viper
 		}
 
 		// create texture from surface, texture is a friend class of renderer  
-		_texture = SDL_CreateTextureFromSurface(renderer, surface);
+		//_texture = SDL_CreateTextureFromSurface(renderer, surface);
 		// once texture is created, surface can be freed up  
 		SDL_DestroySurface(surface);
 		if (_texture == NULL)

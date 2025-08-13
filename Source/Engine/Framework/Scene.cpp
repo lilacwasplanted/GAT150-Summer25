@@ -26,7 +26,14 @@ namespace viper
 
 	void Scene::AddActor(unique_ptr<class Actor> actor)
 	{
+		actor->scene = this;
 		_actors.push_back(move(actor));
 	}
+
+	void Scene::RemoveAllActors()
+	{
+		_actors.clear();
+	}
+
 
 }

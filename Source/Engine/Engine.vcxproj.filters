@@ -65,8 +65,11 @@
     <ClCompile Include="Core\File.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Game.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
     <ClCompile Include="Renderer\Texture.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="Renderer\Texture.h">
       <Filter>Source\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Game.h">
+      <Filter>Source\Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
