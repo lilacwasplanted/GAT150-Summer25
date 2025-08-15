@@ -1,6 +1,6 @@
 #pragma once
 #include "../Core/StringHelper.h"
-
+#include <list>
 #include <vector>
 #include <memory>
 #include <string>
@@ -24,9 +24,9 @@ namespace viper{
 	T* GetActorByName(const string& name);
 
 		template<typename T = Actor>
-		inline vector<T*> GetActorsByTag(const string& tag);
+		 vector<T*> GetActorsByTag(const string& tag);
 	private:
-		vector<unique_ptr<class Actor>> _actors;
+		list<unique_ptr<class Actor>> _actors;
 	};
 	/// <summary>
 	/// Finds and returns a pointer to an actor with the specified name, performing a case-insensitive comparison.
@@ -51,7 +51,7 @@ namespace viper{
 		/// <param name="tag">The tag to search for among the actors.</param>
 		/// <returns>A vector containing pointers to actors of type T that have the specified tag.</returns>
 		template<typename T = Actor>
-		inline vector<T*> GetActorsByTag(const string& tag) {
+		vector<T*> GetActorsByTag(const string& tag) {
 			vector<T*> results;
 			for(auto& actor : _actors) {
 				if (viper::tolower(actor->) == viper::tolower(tag)) {

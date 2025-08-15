@@ -28,7 +28,7 @@ void SpaceGame::Update(float dt)
         break;
 
     case SpaceGame::GameState::Title:
-        if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
+        if (INPUT.GetKeyPressed(SDL_SCANCODE_SPACE)) {
             _gameState = GameState::Start;
         }
         break;
@@ -43,7 +43,7 @@ void SpaceGame::Update(float dt)
     {
         // create player
         shared_ptr<viper::Model> model = make_shared<viper::Model>(GameData::shipVerts, viper::vec3{ 0.0f, 0.4f, 1.0f });
-        viper::Transform transform{ viper::vec2{ viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f }, 0, 5 };
+        viper::Transform transform{{ RENDERER.GetWidth() * 0.5f, RENDERER.GetHeight() * 0.5f }, 0, 5 };
        unique_ptr<Player> player = make_unique<Player>(transform, model);
         player->speed = 1500.0f;
         player->rotationRate = 180.0f;

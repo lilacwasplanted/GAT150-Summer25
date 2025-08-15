@@ -18,6 +18,12 @@ namespace viper
 		vec2 velocity{ 0,0 };
 		float damping{ 0.0f };
 
+		bool destroyed{ false };
+		float lifespan{ 0.0f };
+
+		Transform transform;
+		class Scene* scene = nullptr;
+
 	public:
 				Actor() = default;
 				Actor(const Transform& transform,  shared_ptr<class Model> model) :

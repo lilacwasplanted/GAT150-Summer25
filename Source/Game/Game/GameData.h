@@ -7,4 +7,5 @@ using namespace std;
 namespace GameData {
 	extern vector<viper::vec2> shipVerts;
 	extern vector<viper::vec2> enemyVerts;
+	extern vector<viper::vec2> rocketVerts;
 }
