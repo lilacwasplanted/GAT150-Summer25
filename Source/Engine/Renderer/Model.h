@@ -13,11 +13,17 @@ namespace viper {
 			Model(const vector<vec2> verts, const vec3& color) :
 				_verts{ verts },
 				_color{ color }
-			{	}
+			{
+				CalculateRadius(); 
+			}
 
 			void Draw(class Renderer& renderer, const vec2& position, float rotation, float scale);
 			void Draw(class Renderer& renderer, const Transform& transform);
+
 	private:
+		void CalculateRadius();
+	private:
+		float _radius { 0.0f };
 			vector<vec2> _verts;
 			vec3 _color{ 1,1,1 };
 

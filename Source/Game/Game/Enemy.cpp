@@ -24,3 +24,8 @@ void Enemy::Update(float dt)
 
     Actor::Update(dt);
 }
+
+void Enemy::OnCollision(Actor* other)
+{
+
+}

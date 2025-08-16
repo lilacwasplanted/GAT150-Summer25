@@ -28,4 +28,12 @@ namespace viper {
 	{
 		Draw(renderer, transform.pos, transform.rotation, transform.scale);
 	}
+	void Model::CalculateRadius()
+	{
+		_radius = 0;
+		for (auto& vert : _verts) {
+			float length = vert.Length();
+			if (length > _radius) _radius = length;
+		}
+	}
 }

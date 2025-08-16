@@ -40,6 +40,7 @@ void Player::Update(float dt)
 		viper::Transform transform{ this->_transform.pos, this->_transform.pos, 2.0f };
 	auto  rocket = make_unique<Rocket>(transform, model);
 	rocket->speed = 1500.0f;
+	rocket->lifespan = 1.5f;
 	rocket->name = "rocket";
 	rocket->tag = "player";
 
@@ -55,4 +56,8 @@ void Player::Update(float dt)
 	//	_transform.pos += direction * speed * dt; // Update the position based on the direction and speed
 	//}
 	
+}
+
+void Player::OnCollision(Actor* other)
+{
 }

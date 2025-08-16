@@ -27,7 +27,7 @@ namespace viper
 	public:
 				Actor() = default;
 				Actor(const Transform& transform,  shared_ptr<class Model> model) :
-					_transform{ transform },
+					transform{ transform },
 					_model{model}
 				{	}
 				;
@@ -35,9 +35,10 @@ namespace viper
 				virtual void Update(float dt);
 				virtual void Draw(Renderer& renderer);
 
-				Transform& GetTransform() { return _transform; }
+				virtual void OnCollision(Actor* other) = 0;
+
+				float GetRadius();
 	protected:
-		Transform _transform;
 		shared_ptr<Model> _model;
 	}; 
 }

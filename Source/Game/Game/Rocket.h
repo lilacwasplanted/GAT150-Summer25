@@ -14,4 +14,6 @@ public:
 
 	void Update(float dt) override;
 
+	// Inherited via Actor
+	void OnCollision(Actor* other) override;
 };

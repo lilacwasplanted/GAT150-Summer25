@@ -7,10 +7,11 @@ public:
 	Enemy() = default;
 	Enemy(const viper::Transform& transform, shared_ptr<class viper::Model> model) :
 		Actor{ transform, model }
+	{	}
 
-	{
-	}
 	void Update(float dt) override;
-private:
 
-}; 
+	// Inherited via Actor
+	void OnCollision(Actor* other) override;
+
+};
