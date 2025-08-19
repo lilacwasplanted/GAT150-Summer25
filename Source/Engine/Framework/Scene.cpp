@@ -25,25 +25,7 @@ namespace viper
 			}
 		}
 
-		//Check for collisions
-		for (auto& actorA : _actors) {
-			for (auto& actorB : _actors) {
-				if (actorA == actorB || actorA->destroyed || actorB->destroyed) continue;
-
-				float distance = (actorA->transform.pos - actorB->transform.pos).Length();
-				if (distance <= (actorA->GetRadius() + actorB->GetRadius())) {
-					// Collision detected, call OnCollision on both actors
-					actorA->OnCollision(actorB.get());
-					actorB->OnCollision(actorA.get());
-				}
-				
-			}
-		}
-		
-
 	}
-
-
 
 	/// <summary>
 	/// Draws all actors in the scene using the specified renderer.

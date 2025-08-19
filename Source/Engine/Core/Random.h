@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdlib>
 #include <random>
+#include "Math/Vector2.h"
+#include "Math/Math.h"
 using namespace std;
 
 namespace viper::random {
@@ -48,5 +50,13 @@ namespace viper::random {
     inline bool getBool() {
         static bernoulli_distribution dist(0.5);
         return dist(generator());
+    }
+    /// <summary>
+    /// Generates a 2D vector representing a point on the unit circle.
+    /// </summary>
+    /// <returns>A vec2 containing the x and y coordinates of a point on the unit circle.</returns>
+    inline vec2 onUnitCircle() {
+        float radians = getReal(math::twopi);
+        return vec2{math:: cosf(radians), math::sinf(radians)};
     }
 }

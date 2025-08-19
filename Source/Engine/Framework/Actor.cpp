@@ -8,10 +8,8 @@ namespace viper {
 
 	if (lifespan != 0.0f) {
 			lifespan -= dt;
-				destroyed = lifespan <= 0;
-	
+			destroyed = lifespan <= 0;
 	}
-
 		transform.pos += velocity * dt;
 		velocity *= (1.0f / (1.0f + damping * dt));
 	};

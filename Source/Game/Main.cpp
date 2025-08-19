@@ -3,6 +3,7 @@
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
 #include "Framework/Actor.h"
+#include "Framework/Game.h"
 #include "Math/Transform.h"
 #include "Renderer/Model.h"
 #include "Renderer/Text.h"
@@ -28,30 +29,24 @@
 #include <vector>
 #include <string>
 
-
 using namespace std;
- namespace ran = viper::random;
- namespace file = viper::file;
 
 int main(int argc, char* argv[]) {
-	viper::Scene scene;
-	vector <unique_ptr<viper::Actor>> actors;
+	viper::file::SetCurrentDirectory("Assests");
 
-
-	//Initialize Engine Systems
 	viper::GetEngine().Initialize();
-	scene.Update(TIME.GetDeltaTime()); // Draw the scene
 
 	//initialize Space Game
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
 	game->Initialize();
 
-	//Create Audio System
-
+	vector<viper::vec2> stars;
+	for (int i = 0; i < 100; ++i) {
+		stars.push_back(viper::vec2{ viper::random::getReal() * 1280, viper::random::getReal() * 1024});
+	}
 
 	SDL_Event e;
 	bool quit = false;
-
 
 	//MAIN LOOP HERE--------------------------------------------------------------------------------------
 	while (!quit) {
@@ -67,21 +62,14 @@ int main(int argc, char* argv[]) {
 
 		//Draw
 		viper::vec3 color{ 0, 0, 0 };
-
 		RENDERER.SetColor(color.r, color.g, color.b);			//Background color
 		RENDERER.Clear();
-		
-		//model.Draw(renderer,input.GetMousePos(), 5.0f, 25.0f); // Draw the model at the center of the screen
-		scene.Draw(RENDERER);// Draw the scene
 
-		for(auto& actor : actors){
-			actor->Draw(RENDERER); // Draw the actor
-		}
-
-		text->Draw(RENDERER, 40.0f, 40.0f);
-
-		RENDERER.Present(); // Render the screen
+		game->Draw(RENDERER);
+		RENDERER.Present(); 
 	}
+	game->Shutdown(); 
+	game.release();
 	viper::GetEngine().Shutdown(); // Shutdown the engine
 	return 0;
 }

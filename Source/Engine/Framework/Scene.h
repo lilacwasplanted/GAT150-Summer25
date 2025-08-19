@@ -5,19 +5,19 @@
 #include <memory>
 #include <string>
 
-
 using namespace std;
-
+class Actor;
+class Game;
 
 namespace viper{
 	class Scene {
 	public: 
-		Scene() = default;
+		Scene(Game* game) : _game{ game } { }
 
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 
-		void AddActor(unique_ptr<class Actor> actor);
+		void AddActor(unique_ptr<Actor> actor);
 		void RemoveAllActors();
 
 		template<typename T = Actor>
@@ -25,7 +25,11 @@ namespace viper{
 
 		template<typename T = Actor>
 		 vector<T*> GetActorsByTag(const string& tag);
+
+		 Game* GetGame() const { return _game; }
+
 	private:
+		Game* _game{ nullptr };
 		list<unique_ptr<class Actor>> _actors;
 	};
 	/// <summary>
@@ -37,7 +41,7 @@ namespace viper{
 	template<typename T = Actor>
 	T* GetActorByName(const string& name) {
 		for (auto& actor : _actors) {
-			if (viper::tolower(actor->name) == viper::tolower(name)) {
+			if (tolower(actor->name) == tolower(name)) {
 				return actor.get();
 			}
 		}
@@ -54,7 +58,7 @@ namespace viper{
 		vector<T*> GetActorsByTag(const string& tag) {
 			vector<T*> results;
 			for(auto& actor : _actors) {
-				if (viper::tolower(actor->) == viper::tolower(tag)) {
+				if (tolower(actor->) == tolower(tag)) {
 					T* object = dynamic_cast<T*>(actor);
 					if (object) {
 						results.push_back(object);

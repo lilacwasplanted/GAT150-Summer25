@@ -52,6 +52,16 @@ namespace viper::math{
 		if (result < 0) result += range;								//wrap foward if results is ne
 		return min + result;				//Shift the result back to [min, max) range
 	}
+	/// <summary>
+	/// Determines the sign of a given value.
+	/// </summary>
+	/// <typeparam name="T">The type of the value to check.</typeparam>
+	/// <param name="v">The value whose sign is to be determined.</param>
+	/// <returns>Returns -1 if the value is negative, 1 if positive, and 0 if zero.</returns>
+	template <typename T>
+	inline T sign(T v) {
+		return (v < 0) ? (T)-1 : (v > 0) ? (T)1 : (T)0;
+	}
 
 	using std::min;
 	using std::max;
@@ -60,6 +70,8 @@ namespace viper::math{
 	using std::sqrtf;
 	using std::sin;
 	using std::sinf;
+	using std::acos;
+	using std::acosf;
 	using std::cos;
 	using std::cosf;
 	using std::atan2;

@@ -30,7 +30,6 @@ namespace viper
 					transform{ transform },
 					_model{model}
 				{	}
-				;
 
 				virtual void Update(float dt);
 				virtual void Draw(Renderer& renderer);

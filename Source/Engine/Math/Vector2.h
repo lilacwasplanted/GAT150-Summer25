@@ -73,6 +73,43 @@ namespace viper {
 
 			return v;
 		}
+		/// <summary>
+		/// Calculates the dot product of two 2D vectors.
+		/// </summary>
+		/// <param name="a">The first 2D vector.</param>
+		/// <param name="b">The second 2D vector.</param>
+		/// <returns>The dot product of the two vectors as a float.</returns>
+		float Dot(const Vector2& a, const Vector2& b) const {
+			return (a.x * b.x + a.y * b.y);
+		}
+		/// <summary>
+		/// Calculates the angle in radians between two 2D vectors.
+		/// </summary>
+		/// <param name="a">The first vector.</param>
+		/// <param name="b">The second vector.</param>
+		/// <returns>The angle in radians between the two vectors.</returns>
+		float AngleBetween(const Vector2& a, const Vector2& b) const {
+			return math::acosf(Dot(a,b));
+		}
+		/// <summary>
+		/// Computes the 2D cross product (determinant) of two vectors.
+		/// </summary>
+		/// <param name="a">The first 2D vector.</param>
+		/// <param name="b">The second 2D vector.</param>
+		/// <returns>The scalar value representing the cross product of the two vectors.</returns>
+		float Cross(const Vector2& a, const Vector2& b) const {
+			return (a.x * b.y - a.y * b.x);
+		}
+		/// <summary>
+		/// Calculates the signed angle in radians between two 2D vectors.
+		/// </summary>
+		/// <param name="a">The first vector.</param>
+		/// <param name="b">The second vector.</param>
+		/// <returns>The signed angle in radians between vector a and vector b. The sign indicates the direction from a to b.</returns>
+		float SignedAngleBetween (const Vector2& a, const Vector2& b) const {
+			Vector2 v{ Dot(a, b), Cross(a, b) };
+			return v.Angle();
+		}
 	};
 
 	using ivec2 = Vector2<int>;
