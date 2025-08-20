@@ -1,0 +1,8 @@
+{
+	"name": "Lilac",
+	"age": 20,
+	"speed": 18.5,
+	"isAwake": true,
+	"position": [ 10, 20 ],
+	"color": [ 230, 230, 250 ]
+}

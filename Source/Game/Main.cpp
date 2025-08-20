@@ -1,4 +1,8 @@
 #include "Game/SpaceGame.h"
+#include "Renderer/Texture.h"
+
+using namespace std;
+
 
 class Animal {
 public:
@@ -7,18 +11,18 @@ public:
 
 class Cat : public Animal {
 public:
-    void Speak() override { std::cout << "meow\n"; }
+    void Speak() override { cout << "meow\n"; }
 };
 
 class Dog : public Animal {
 public:
-    void Speak() override { std::cout << "woof\n"; }
-    void Fetch() { std::cout << "got the ball!\n"; }
+    void Speak() override { cout << "woof\n"; }
+    void Fetch() { cout << "got the ball!\n"; }
 };
 
 class Bird : public Animal {
 public:
-    void Speak() override { std::cout << "cheap\n"; }
+    void Speak() override { cout << "cheap\n"; }
 };
 
 enum class AnimalType {
@@ -62,15 +66,18 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().Initialize();
 
     // initialize game
-    std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
+    unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
     game->Initialize();
 
     // initialize sounds
-    viper::GetEngine().GetAudio().AddSound("bass.wav", "bass");
-    viper::GetEngine().GetAudio().AddSound("snare.wav", "snare");
-    viper::GetEngine().GetAudio().AddSound("clap.wav", "clap");
-    viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
-    viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
+    AUDIO.AddSound("bass.wav", "bass");
+    AUDIO.AddSound("snare.wav", "snare");
+    AUDIO.AddSound("clap.wav", "clap");
+    AUDIO.AddSound("close-hat.wav", "close-hat");
+    AUDIO.AddSound("open-hat.wav", "open-hat");
+
+
+	auto texture = viper::ResourceManager::Instance().Get<viper::Texture>("luigi.jpg", RENDERER);
 
     SDL_Event e;
     bool quit = false;
@@ -84,18 +91,18 @@ int main(int argc, char* argv[]) {
         }
 
         viper::GetEngine().Update();
-        game->Update(viper::GetEngine().GetTime().GetDeltaTime());
+        game->Update(TIME.GetDeltaTime());
 
-        if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        if (INPUT.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
         // draw
         viper::vec3 color{ 0, 0, 0 };
-        viper::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
-        viper::GetEngine().GetRenderer().Clear();
+        RENDERER.SetColor(color.r, color.g, color.b);
+        RENDERER.Clear();
 
-        game->Draw(viper::GetEngine().GetRenderer());
-
-        viper::GetEngine().GetRenderer().Present();
+        game->Draw(RENDERER);
+        //RENDERER.DrawTexture(texture.get(), 30.0f,30.0f,4.0f,45.0f);
+        RENDERER.Present();
     }
 
     game->Shutdown();

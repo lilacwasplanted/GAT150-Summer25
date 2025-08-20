@@ -38,7 +38,7 @@ namespace viper {
 			switch (level) {
 			case LogLevel::Info:
 				prefix = "[INFO] "; 
-				color = "\033[32m"; // Green
+				color = "\033[35m"; // Magenta
 				break;
 			case LogLevel::Warning: 
 				prefix = "[WARNING] ";

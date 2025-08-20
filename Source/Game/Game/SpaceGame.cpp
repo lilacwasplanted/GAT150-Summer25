@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "GameData.h"
+#include "Renderer/Texture.h"
+
+using namespace std;
 
 bool SpaceGame::Initialize()
 {
@@ -15,6 +18,7 @@ bool SpaceGame::Initialize()
     m_titleText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     m_scoreText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
     m_livesText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
+
 
     return true;
 }

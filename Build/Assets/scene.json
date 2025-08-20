@@ -1,0 +1,26 @@
+{
+	"actors": [
+		{
+			"name": "sprite",
+			"tag": "background",
+			"lifespan": 4,
+			"transform": {
+				"position": [ 400, 300 ],
+				"rotation": 30,
+				"scale": 2
+			},
+			"components": [
+				{
+					"type": "SpriteRenderer",
+					"texture_name": "textures/space-background.jpg"
+				}
+			]
+		},
+		{
+
+		}
+	]
+
+
+
+}

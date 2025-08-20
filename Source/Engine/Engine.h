@@ -9,6 +9,11 @@
 
 #include <memory>
 
+#define RENDERER viper::GetEngine().GetRenderer()
+#define INPUT viper::GetEngine().GetInput()
+#define TIME viper::GetEngine().GetTime()
+#define AUDIO viper::GetEngine().GetAudio()
+
 namespace viper {
 	class Engine : public Singleton<Engine> {
 	public:
