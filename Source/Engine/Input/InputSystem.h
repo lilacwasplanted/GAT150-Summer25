@@ -3,55 +3,46 @@
 #include <vector>
 #include <array>
 
-
-using namespace std;
-
 namespace viper {
-	class is {
-
+	class InputSystem {
 	public:
-	
 		enum class MouseButton : uint8_t {
 			Left,
 			Middle,
 			Right
-
 		};
-	
 
-		void InputSystem() {}
+	public:
+		InputSystem() = default;
 
 		bool Initialize();
 		void Shutdown();
+
 		void Update();
 
-		//Keyboard Input
-		bool GetKeyDown(unsigned int key) const { return _kbState[key]; }
-		bool GetPrevKeyDown(unsigned int key)const  { return _prevKbState[key]; }
-		bool GetKeyPressed(unsigned int key) const { return !_prevKbState[key] && _kbState[key]; }
-		bool GetKeyReleased(unsigned int key) const { return _prevKbState[key] && !_kbState[key]; }
+		// KEYBOARD INPUT
+		bool GetKeyDown(uint8_t key) const { return m_keyboardState[key]; }
+		bool GetPreviousKeyDown(uint8_t key) const { return m_prevKeyboardState[key]; }
+		bool GetKeyPressed(uint8_t key) const { return !m_prevKeyboardState[key] && m_keyboardState[key]; }
+		bool GetKeyReleased(uint8_t key) const { return m_prevKeyboardState[key] && !m_keyboardState[key]; }
 
+		// MOUSE INPUT
+		bool GetMouseButtonDown(MouseButton button) { return m_mouseButtonState[(uint8_t)button]; }
+		bool GetPreviousMouseButtonDown(MouseButton button) { return m_prevMouseButtonState[(uint8_t)button]; }
+		bool GetMouseButtonPressed(MouseButton button) { return !m_prevMouseButtonState[(uint8_t)button] && m_mouseButtonState[(uint8_t)button]; }
+		bool GetMouseButtonReleased(MouseButton button) { return m_prevMouseButtonState[(uint8_t)button] && !m_mouseButtonState[(uint8_t)button]; }
 
-		//mouse input
-		bool GetMouseButtonDown(MouseButton button) { return _mouseButtonState[(uint8_t)button]; }
-		bool GetPrevMouseButtonDown(MouseButton button) {return _prevMouseButtonState[(uint8_t)button]; }
-		bool GetMouseButtonPressed(MouseButton button) const {return !_prevMouseButtonState[(uint8_t)button] && _mouseButtonState[(uint8_t)button]; }
-		bool GetMouseButtonReleased(MouseButton button) const { return _prevMouseButtonState[(uint8_t)button] && !_mouseButtonState[(uint8_t)button]; }
-
-		const vec2& GetMousePos() const { return _mousePos; }
-		const vec2& GetPrevMousePos() const{ return _prevMousePos; }
-
+		const vec2& GetMousePosition() const { return m_mousePosition; }
+		const vec2& GetPreviousMousePosition() const { return m_prevMousePosition; }
 
 	private:
-		vector<bool> _kbState;
-		vector<bool> _prevKbState;
+		std::vector<bool> m_keyboardState;
+		std::vector<bool> m_prevKeyboardState;
 
-		vec2 _mousePos;
-		vec2 _prevMousePos;
+		viper::vec2 m_mousePosition{ 0, 0 };
+		viper::vec2 m_prevMousePosition{ 0, 0 };
 
-		array<bool, 3> _mouseButtonState{ false, false, false };
-		array<bool, 3> _prevMouseButtonState{ false, false, false };
-
-
+		std::array<bool, 3> m_mouseButtonState{ false, false, false };
+		std::array<bool, 3> m_prevMouseButtonState{ false, false, false };
 	};
 }

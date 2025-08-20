@@ -1,23 +1,23 @@
 #pragma once
+#include "Resources/Resource.h"
 #include "Math/Vector2.h"
 #include <string>
-#include <SDL3/SDL.h>
 
-using namespace std;
+struct SDL_Texture;
+
 namespace viper {
-	class Texture
-	{
+	class Texture : public Resource {
 	public:
 		Texture() = default;
 		~Texture();
 
-		bool Load(const string& filename, class Renderer& renderer);
+		bool Load(const std::string& filename, class Renderer& renderer);
 
-		viper::vec2 GetSize();
+		vec2 GetSize();
 
 		friend class Renderer;
 
 	private:
-		struct SDL_Texture* _texture{ nullptr };
+		SDL_Texture* m_texture{ nullptr };
 	};
 }

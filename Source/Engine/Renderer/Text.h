@@ -1,24 +1,22 @@
-#pragma once  
-#include "Renderer.h" // Add this include to ensure the Renderer class is fully defined  
-#include "Math/Vector3.h"  
-#include <string>  
+#pragma once
+#include "../Math/Vector3.h"
+#include <string>
+#include <memory>
 
-using namespace std;  
-struct SDL_Texture;  
+struct SDL_Texture;
 
-namespace viper  
-{  
-	class Text {  
-	public:  
-		Text() = default;  
-		Text(shared_ptr<class Font> font) : _font{ font } {}  
-		~Text();  
+namespace viper {
+	class Text {
+	public:
+		Text() = default;
+		Text(std::shared_ptr<class Font> font) : m_font{ font } {}
+		~Text();
 
-		bool Create(viper::Renderer& renderer, const string& text, const viper::vec3& color);  
-		void Draw(viper::Renderer& renderer, float x, float y);  
+		bool Create(class Renderer& renderer, const std::string& text, const vec3& color);
+		void Draw(class Renderer& renderer, float x, float y);
 
-	private:  
-		shared_ptr<class Font> _font{ nullptr };  
-		SDL_Texture* _texture{ nullptr };  
-	};  
+	private:
+		std::shared_ptr<class Font> m_font{ nullptr };
+		SDL_Texture* m_texture{ nullptr };
+	};
 }

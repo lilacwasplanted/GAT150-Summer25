@@ -1,47 +1,37 @@
 #include "Texture.h"
 #include "Renderer.h"
-#include <iostream>
 
-namespace viper
-{
+namespace viper {
+    Texture::~Texture() {
+        // if texture exists, destroy texture
+        if (m_texture) SDL_DestroyTexture(m_texture);
+    }
 
+    bool Texture::Load(const std::string& filename, Renderer& renderer) {
+        // load image onto surface
+        SDL_Surface* surface = IMG_Load(filename.c_str());
+        if (!surface) {
+            Logger::Error("Could not load image: {}", filename);
+            return false;
+        }
 
-	Texture::~Texture()
-	{
-		// if texture exists, destroy texture
-		if (_texture != NULL) SDL_DestroyTexture(_texture);
-	}
+        // create texture from surface, texture is a friend class of renderer
+        m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
+        // once texture is created, surface can be freed up
+        SDL_DestroySurface(surface);
+        if (!m_texture) {
+            Logger::Error("Could not create texture: {}", filename);
+            return false;
+        }
 
-	bool Texture::Load(const string& filename, Renderer& renderer)
-	{
-		// load image onto surface  
-		SDL_Surface* surface = IMG_Load(filename.c_str());
-		if (surface == NULL)
-		{
-			std::cerr << "Could not load image: " << filename << std::endl;
-			return false;
-		}
+        return true;
+    }
 
-		// create texture from surface, texture is a friend class of renderer  
-		//_texture = SDL_CreateTextureFromSurface(renderer, surface);
-		// once texture is created, surface can be freed up  
-		SDL_DestroySurface(surface);
-		if (_texture == NULL)
-		{
-			cerr << "Could not create texture: " << filename << endl;
-			return false;
-		}
+    vec2 Texture::GetSize() {
+        // query the texture for the size
+        float w, h;
+        SDL_GetTextureSize(m_texture, &w, &h);
 
-		return true;
-	}
-
-	viper::vec2 Texture::GetSize()
-	{
-		float w, h;
-		if (_texture != nullptr) {
-			SDL_GetTextureSize(_texture, &w, &h);
-		}
-		return viper::vec2(w, h);
-
-	}
+        return vec2{ w, h };
+    }
 }

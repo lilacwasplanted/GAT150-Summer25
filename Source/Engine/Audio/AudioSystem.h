@@ -3,29 +3,28 @@
 #include <string>
 #include <map>
 
-using namespace std;
 namespace viper {
-	class as {
-
+	class AudioSystem {
 	public:
-
-		void AudioSystem() {};
+		AudioSystem() = default;
 
 		bool Initialize();
 		void Shutdown();
 
 		void Update();
 
-		bool AddSound(const string& filename, const string& name = "");
-		bool PlaySound(const string& name);
+		bool AddSound(const std::string& filename, const std::string& name = "");
+		bool PlaySound(const std::string& name);
+		bool PlaySound(class AudioClip& audioClip);
 
 	private:
-		bool CheckFMODResult(FMOD_RESULT result);
+		static bool CheckFMODResult(FMOD_RESULT result);
 
 	private:
+		friend class AudioClip;
 
-		FMOD::System* _system = nullptr;
-		map<string, FMOD::Sound*> _sounds;
-
+		FMOD::System* m_system = nullptr;
+		std::map<std::string, FMOD::Sound*> m_sounds;
 	};
+
 }

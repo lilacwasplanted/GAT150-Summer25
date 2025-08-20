@@ -1,20 +1,18 @@
 #pragma once
-
-#include <string>
-#include <vector>
-
-using namespace std;
+#include <filesystem>
 
 namespace viper::file {
-        string GetCurrentDirectory();
-        bool SetCurrentDirectory(const string& path);
-        string GetExtension(const string& path);
-        string GetFilename(const string& path);
-        bool Exists(const string& path);
+    std::string GetCurrentDirectory();
+    bool SetCurrentDirectory(const std::string& path);
+    std::string GetExtension(const std::string& path);
+    std::string GetFilename(const std::string& path);
+    bool Exists(const std::string& path);
 
-        vector<string> GetFilesInDirectory(const string& path);
-        vector<string> GetDirectoriesIn(const string& path);
+    std::vector<std::string> GetFilesInDirectory(const std::string& path);
+    std::vector<std::string> GetDirectoriesIn(const std::string& path);
 
-        bool ReadTextFile(const string& path, string& content);
-        bool WriteTextFile(const string& path, const string& content, bool append = false);
- }
+    bool ReadTextFile(const std::string& path, std::string& content);
+    bool WriteTextFile(const std::string& path, const std::string& content, bool append = false);
+    bool ReadBinaryFile(const std::string& path, std::vector<uint8_t>& data);
+    bool WriteBinaryFile(const std::string& path, const std::vector<uint8_t>& data);
+}

@@ -20,6 +20,7 @@ namespace viper {
 			void Draw(class Renderer& renderer, const vec2& position, float rotation, float scale);
 			void Draw(class Renderer& renderer, const Transform& transform);
 
+			float GetRadius() const { return _radius; }
 	private:
 		void CalculateRadius();
 	private:

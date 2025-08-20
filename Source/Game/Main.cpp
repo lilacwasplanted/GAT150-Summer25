@@ -1,75 +1,106 @@
-#include "Renderer/Renderer.h"
-#include "Input/InputSystem.h"
-#include "Audio/AudioSystem.h"
-#include "Framework/Scene.h"
-#include "Framework/Actor.h"
-#include "Framework/Game.h"
-#include "Math/Transform.h"
-#include "Renderer/Model.h"
-#include "Renderer/Text.h"
-#include "Renderer/Font.h"
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Core/Random.h"
-#include "Math/Math.h"
-#include "Core/Time.h"
-#include "Core/File.h"
-#include "Engine.h"
-
-#include "Game/Player.h"
-#include "Game/Enemy.h"
 #include "Game/SpaceGame.h"
 
-#include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3/SDL.h>
-#include <fmod.hpp>
-#include <iostream>
-#include <memory>
-#include <random> // Add this include directive at the top of the file
-#include <vector>
-#include <string>
+class Animal {
+public:
+    virtual void Speak() = 0;
+};
 
-using namespace std;
+class Cat : public Animal {
+public:
+    void Speak() override { std::cout << "meow\n"; }
+};
+
+class Dog : public Animal {
+public:
+    void Speak() override { std::cout << "woof\n"; }
+    void Fetch() { std::cout << "got the ball!\n"; }
+};
+
+class Bird : public Animal {
+public:
+    void Speak() override { std::cout << "cheap\n"; }
+};
+
+enum class AnimalType {
+    Cat,
+    Dog,
+    Bird
+};
+
+Animal* CreateAnimal(AnimalType id) {
+    Animal* animal = nullptr;
+    switch (id) {
+    case AnimalType::Cat:
+        animal = new Cat;
+        break;
+    case AnimalType::Dog:
+        animal = new Dog;
+        break;
+    case AnimalType::Bird:
+        animal = new Bird;
+        break;
+    default:
+        break;
+    }
+
+    return animal;
+}
 
 int main(int argc, char* argv[]) {
-	viper::file::SetCurrentDirectory("Assests");
+    viper::file::SetCurrentDirectory("Assets");
+    viper::Logger::Info("current directory {}", viper::file::GetCurrentDirectory());
 
-	viper::GetEngine().Initialize();
+    auto animal = CreateAnimal(AnimalType::Bird);
+    animal->Speak();
+    auto dog = dynamic_cast<Dog*>(animal);
+    if (dog) {
+        dog->Fetch();
+    }
 
-	//initialize Space Game
-	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
-	game->Initialize();
+    // initialize engine
+    viper::Logger::Warning("initialize engine...");
+    viper::GetEngine().Initialize();
 
-	vector<viper::vec2> stars;
-	for (int i = 0; i < 100; ++i) {
-		stars.push_back(viper::vec2{ viper::random::getReal() * 1280, viper::random::getReal() * 1024});
-	}
+    // initialize game
+    std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
+    game->Initialize();
 
-	SDL_Event e;
-	bool quit = false;
+    // initialize sounds
+    viper::GetEngine().GetAudio().AddSound("bass.wav", "bass");
+    viper::GetEngine().GetAudio().AddSound("snare.wav", "snare");
+    viper::GetEngine().GetAudio().AddSound("clap.wav", "clap");
+    viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
+    viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
-	//MAIN LOOP HERE--------------------------------------------------------------------------------------
-	while (!quit) {
-		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_EVENT_QUIT) {
-				quit = true;
-			}
-		}
-		viper::GetEngine().Update(); // Update the engine time
-		game->Update(TIME.GetDeltaTime());
+    SDL_Event e;
+    bool quit = false;
 
-		if (INPUT.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+    // MAIN LOOP
+    while (!quit) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_EVENT_QUIT) {
+                quit = true;
+            }
+        }
 
-		//Draw
-		viper::vec3 color{ 0, 0, 0 };
-		RENDERER.SetColor(color.r, color.g, color.b);			//Background color
-		RENDERER.Clear();
+        viper::GetEngine().Update();
+        game->Update(viper::GetEngine().GetTime().GetDeltaTime());
 
-		game->Draw(RENDERER);
-		RENDERER.Present(); 
-	}
-	game->Shutdown(); 
-	game.release();
-	viper::GetEngine().Shutdown(); // Shutdown the engine
-	return 0;
+        if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+
+        // draw
+        viper::vec3 color{ 0, 0, 0 };
+        viper::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
+        viper::GetEngine().GetRenderer().Clear();
+
+        game->Draw(viper::GetEngine().GetRenderer());
+
+        viper::GetEngine().GetRenderer().Present();
+    }
+
+    game->Shutdown();
+    game.release();
+    viper::GetEngine().Shutdown();
+
+    return 0;
 }

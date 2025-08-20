@@ -1,5 +1,4 @@
-#include "Framework/Game.h"
-#include <memory>
+#include "Game.h"
 
 namespace viper {
 

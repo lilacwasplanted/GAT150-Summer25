@@ -8,24 +8,24 @@ namespace viper {
 
 	public:
 		Time() {
-			_startTime = clock::now();
-			_frameTime = clock::now();
+			m_startTime = clock::now();
+			m_frameTime = clock::now();
 		}
 
 		void Tick();
-		void Reset() { _startTime = clock::now(); }
+		void Reset() { m_startTime = clock::now(); }
 
-		float GetTime() const { return _time; }
-		float GetDeltaTime() const { return _deltaTime; }
+		float GetTime() const { return m_time; }
+		float GetDeltaTime() const { return m_deltaTime * m_timeScale; }
 
-		void SetTimeScale(float timeScale) { _timeScale = timeScale; }
+		void SetTimeScale(float timeScale) { m_timeScale = timeScale; }
 
 	private:
-		float _time = 0;
-		float _deltaTime = 0;
-		float _timeScale = 1;
+		float m_time = 0;
+		float m_deltaTime = 0;
+		float m_timeScale = 1;
 
-		clock::time_point _startTime;
-		clock::time_point _frameTime;
+		clock::time_point m_startTime;
+		clock::time_point m_frameTime;
 	};
 }

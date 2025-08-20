@@ -1,71 +1,81 @@
 #pragma once
-#include "../Core/StringHelper.h"
-#include <list>
-#include <vector>
-#include <memory>
+#include "Core/StringHelper.h"
+#include "Core/Serializable.h"
 #include <string>
+#include <vector>
+#include <list>
+#include <memory>
 
-using namespace std;
-class Actor;
-class Game;
+namespace viper {
+	class Actor;
+	class Game;
 
-namespace viper{
-	class Scene {
-	public: 
-		Scene(Game* game) : _game{ game } { }
+	class Scene : public Serializable {
+	public:
+		Scene(Game* game) : m_game{ game } {}
+
+		void Read(const json::value_t& value) override;
 
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 
-		void AddActor(unique_ptr<Actor> actor);
+		void AddActor(std::unique_ptr<Actor> actor);
 		void RemoveAllActors();
 
 		template<typename T = Actor>
-	T* GetActorByName(const string& name);
+		T* GetActorByName(const std::string& name);
 
 		template<typename T = Actor>
-		 vector<T*> GetActorsByTag(const string& tag);
+		std::vector<T*> GetActorsByTag(const std::string& tag);
 
-		 Game* GetGame() const { return _game; }
+		Game* GetGame() { return m_game; }
 
 	private:
-		Game* _game{ nullptr };
-		list<unique_ptr<class Actor>> _actors;
-	};
-	/// <summary>
-	/// Finds and returns a pointer to an actor with the specified name, performing a case-insensitive comparison.
-	/// </summary>
-	/// <typeparam name="T">The type of actor to search for. Defaults to Actor.</typeparam>
-	/// <param name="name">The name of the actor to search for.</param>
-	/// <returns>A pointer to the actor with the specified name if found; otherwise, nullptr.</returns>
-	template<typename T = Actor>
-	T* GetActorByName(const string& name) {
-		for (auto& actor : _actors) {
-			if (tolower(actor->name) == tolower(name)) {
-				return actor.get();
-			}
-		}
-		return nullptr;
-		}
+		Game* m_game{ nullptr };
+		std::list<std::unique_ptr<Actor>> m_actors;
 
-		/// <summary>
-		/// Retrieves all actors with a specified tag, cast to the given type.
-		/// </summary>
-		/// <typeparam name="T">The type to cast the actors to. Defaults to Actor.</typeparam>
-		/// <param name="tag">The tag to search for among the actors.</param>
-		/// <returns>A vector containing pointers to actors of type T that have the specified tag.</returns>
-		template<typename T = Actor>
-		vector<T*> GetActorsByTag(const string& tag) {
-			vector<T*> results;
-			for(auto& actor : _actors) {
-				if (tolower(actor->) == tolower(tag)) {
-					T* object = dynamic_cast<T*>(actor);
-					if (object) {
-						results.push_back(object);
-					}
+	};
+
+	/// <summary>
+	/// Retrieves an actor from the scene by name and casts it to the specified type.
+	/// </summary>
+	/// <typeparam name="T">The type to which the found actor should be cast.</typeparam>
+	/// <param name="name">The name of the actor to search for (case-insensitive).</param>
+	/// <returns>A pointer to the actor cast to type T if found and the cast is successful; otherwise, nullptr.</returns>
+	template<typename T>
+	inline T* Scene::GetActorByName(const std::string& name)
+	{
+		for (auto& actor : m_actors) {
+			if (viper::tolower(actor->name) == viper::tolower(name)) {
+				T* object = dynamic_cast<T*>(actor.get());
+				if (object) {
+					return object;
 				}
 			}
-			return results;
 		}
 
+		return nullptr;
+	}
+
+	/// <summary>
+	/// Retrieves all actors in the scene with a tag matching the specified value and of the specified type.
+	/// </summary>
+	/// <typeparam name="T">The type to which actors should be cast. Only actors of this type are included in the results.</typeparam>
+	/// <param name="tag">The tag to match against each actor's tag (case-insensitive).</param>
+	/// <returns>A vector of pointers to actors of type T whose tag matches the specified tag.</returns>
+	template<typename T>
+	inline std::vector<T*> Scene::GetActorsByTag(const std::string& tag)
+	{
+		std::vector<T*> results;
+		for (auto& actor : m_actors) {
+			if (viper::tolower(actor->tag) == viper::tolower(tag)) {
+				T* object = dynamic_cast<T*>(actor.get());
+				if (object) {
+					results.push_back(object);
+				}
+			}
+		}
+
+		return results;
+	}
 }

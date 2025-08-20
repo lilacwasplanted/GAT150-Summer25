@@ -1,34 +1,39 @@
 #include "InputSystem.h"
-#include <SDL3/SDL.h>
-using namespace std;
 
 namespace viper {
+    bool InputSystem::Initialize() {
+        int numKeys;
+        const bool* keyboardState = SDL_GetKeyboardState(&numKeys);
+        
+        m_keyboardState.resize(numKeys);
+        std::copy(keyboardState, keyboardState + numKeys, m_keyboardState.begin());
+        m_prevKeyboardState = m_keyboardState;
+    
+        SDL_GetMouseState(&m_mousePosition.x, &m_mousePosition.y);
+        m_prevMousePosition = m_mousePosition;
 
-	bool is::Initialize() {
-		int numbKeys;
-		const bool* keyboardState = SDL_GetKeyboardState(&numbKeys);
+        return true;
+    }
 
-		_kbState.resize(numbKeys);
-		copy(keyboardState, keyboardState + numbKeys, _kbState.begin());
-		_prevKbState = _kbState;
+    void InputSystem::Shutdown() {
+        //
+    }
 
+    void InputSystem::Update() {
+        // keyboard input
+        m_prevKeyboardState = m_keyboardState;
+        const bool* keyboardState = SDL_GetKeyboardState(nullptr);
+        std::copy(keyboardState, keyboardState + m_keyboardState.size(), m_keyboardState.begin());
 
-		return true;
-	}
-	void is::Shutdown() {
+        // mouse input
+        m_prevMousePosition = m_mousePosition;
 
-	}
-	void is::Update() {
-		//keyboard input
-		_prevKbState = _kbState;
-		const bool* keyboardState = SDL_GetKeyboardState(nullptr);
-		copy(keyboardState, keyboardState + _kbState.size(), _kbState.begin());
+        m_prevMouseButtonState = m_mouseButtonState;
+        uint32_t mouseButtonState = SDL_GetMouseState(&m_mousePosition.x, &m_mousePosition.y);
 
-		//mouse input
-		_prevMousePos = _mousePos;
-		uint32_t mouseBtnState = SDL_GetMouseState(&_mousePos.x, &_mousePos.y);
-		_mouseButtonState[(uint8_t)MouseButton::Left] = mouseBtnState & SDL_BUTTON_LMASK;
-		_mouseButtonState[(uint8_t)MouseButton::Middle] = mouseBtnState & SDL_BUTTON_MMASK;
-		_mouseButtonState[(uint8_t)MouseButton::Right] = mouseBtnState & SDL_BUTTON_RMASK;
-	}
+        m_mouseButtonState[(uint8_t)MouseButton::Left] = mouseButtonState & SDL_BUTTON_LMASK;
+        m_mouseButtonState[(uint8_t)MouseButton::Middle] = mouseButtonState & SDL_BUTTON_MMASK;
+        m_mouseButtonState[(uint8_t)MouseButton::Right] = mouseButtonState & SDL_BUTTON_RMASK;
+    }
+
 }

@@ -6,34 +6,37 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source\Game">
-      <UniqueIdentifier>{36fe4104-d438-4c77-bea7-2d5aa35534ad}</UniqueIdentifier>
+      <UniqueIdentifier>{3ce2fbdd-d881-49b4-bded-eb13fc4d5a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{7d2ce0eb-c054-4fe8-a9fe-1efa54b53c25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Enemy.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
+    <ClCompile Include="Game\Rocket.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\SpaceGame.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
     <ClCompile Include="Game\GameData.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Rocket.cpp">
+    <ClCompile Include="Game\Player.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePCH.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Player.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Enemy.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Rocket.h">
@@ -42,8 +45,22 @@
     <ClInclude Include="Game\SpaceGame.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Enemy.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
     <ClInclude Include="Game\GameData.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="GamePCH.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Build\Assets\Meshes\enemy.msh">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scene.json">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

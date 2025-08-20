@@ -1,23 +1,16 @@
 #pragma once
-#include "Framework/Actor.h"
+#include "Framework/Component.h"
 
-class Player : public viper::Actor {
+class Player : public viper::Component {
 public:
 	float speed = 200;
-	float rotationRate = 180.f;
+	float rotationRate = 180;
 	float fireTime = 0.2f;
-	float fireTimer = 0;
-
+	float fireTimer = 0.0f;
 
 public:
-	Player () = default;
-	Player(const viper::Transform& transform, shared_ptr<class viper::Model> model) :
-		Actor{ transform, model }
+	Player() = default;
 
-	{}
 	void Update(float dt) override;
-
-	// Inherited via Actor
-	void OnCollision(Actor* other) override;
-
+	void OnCollision(class viper::Actor* other);
 };

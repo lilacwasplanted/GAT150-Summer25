@@ -1,43 +1,74 @@
 #pragma once
-#include "Math/Transform.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Model.h"
+#include "Object.h"
+#include "Component.h"
 #include "Renderer/Texture.h"
-
+#include "Math/Transform.h"
 #include <string>
 #include <memory>
-using namespace std;
+#include <vector>
 
-namespace viper
-{
-	class Actor {
+namespace viper {
+	class Actor : public Object {
 	public:
-		string name;
-		string tag;
-
-		vec2 velocity{ 0,0 };
-		float damping{ 0.0f };
+		std::string tag;
 
 		bool destroyed{ false };
-		float lifespan{ 0.0f };
+		float lifespan{ 0 };
 
 		Transform transform;
-		class Scene* scene = nullptr;
+		class Scene* scene{ nullptr };
 
 	public:
-				Actor() = default;
-				Actor(const Transform& transform,  shared_ptr<class Model> model) :
-					transform{ transform },
-					_model{model}
-				{	}
+		Actor() = default;
+		Actor(const Transform& transform) :
+			transform{ transform }
+		{}
 
-				virtual void Update(float dt);
-				virtual void Draw(Renderer& renderer);
+		void Read(const json::value_t& value) override;
 
-				virtual void OnCollision(Actor* other) = 0;
+		virtual void Update(float dt);
+		virtual void Draw(class Renderer& renderer);
 
-				float GetRadius();
+		virtual void OnCollision(Actor* other) {}
+
+		// components
+		void AddComponent(std::unique_ptr<Component> component);
+
+		template<typename T>
+		T* GetComponent();
+
+		template<typename T>
+		std::vector<T*> GetComponents();
+
+
 	protected:
-		shared_ptr<Model> _model;
-	}; 
+		std::vector<std::unique_ptr<Component>> m_components;
+	};
+
+
+	template<typename T>
+	inline T* Actor::GetComponent()
+	{
+		for (auto& component : m_components) {
+			auto result = dynamic_cast<T*>(component.get());
+			if (result) return result;
+		}
+
+		return nullptr;
+	}
+
+	template<typename T>
+	inline std::vector<T*> Actor::GetComponents()
+	{
+		std::vector<T*> results;
+
+		for (auto& component : m_components) {
+			auto result = dynamic_cast<T*>(component.get());
+			if (result) {
+				results.push_back(result);
+			}
+		}
+
+		return results;
+	}
 }

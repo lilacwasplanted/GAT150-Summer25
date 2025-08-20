@@ -1,31 +1,54 @@
 #include "Actor.h"
-#include "../Renderer/Model.h"
+#include "Renderer/Renderer.h"
+#include "Components/RendererComponent.h"
 
 namespace viper {
+	FACTORY_REGISTER(Actor)
+
 	void Actor::Update(float dt)
 	{
 		if (destroyed) return;
-
-	if (lifespan != 0.0f) {
+		
+		if (lifespan > 0) {
 			lifespan -= dt;
-			destroyed = lifespan <= 0;
+			if (lifespan <= 0) {
+				destroyed = true;
+				return;
+			}
+		}
+
+		// update all components
+		for (auto& component : m_components) {
+			if (component->active) component->Update(dt);
+		}
 	}
-		transform.pos += velocity * dt;
-		velocity *= (1.0f / (1.0f + damping * dt));
-	};
+
 	void Actor::Draw(Renderer& renderer)
 	{
 		if (destroyed) return;
 
-		_model->Draw(renderer, transform);	
-		//renderer.DrawTexture(_texture.get(), _transform.pos.x, _transform.pos.y, _transform.rotation, _transform.scale);
+		for (auto& component : m_components) {
+			if (component->active) {
+				auto rendererComponent = dynamic_cast<RendererComponent*>(component.get());
+				if (rendererComponent) {
+					rendererComponent->Draw(renderer);
+				}
+			}
+		}
 	}
 
-	float Actor::GetRadius()
+	void Actor::AddComponent(std::unique_ptr<Component> component)
 	{
-		return (_model) ? _model->GetRadius() * transform.scale : 0;
+		component->owner = this;
+		m_components.push_back(std::move(component));
 	}
-	//void Actor::GetRadius() {
-	//	return (_texture) ? _texture->GetSize().Length * 0.5f)* transform.scale * 0.0f;
-	//}
-};
+
+	void Actor::Read(const json::value_t& value) {
+		Object::Read(value);
+
+		JSON_READ(value, tag);
+		JSON_READ(value, lifespan);
+
+		if (JSON_HAS(value, transform)) transform.Read(JSON_GET(value, transform));
+	}
+}
