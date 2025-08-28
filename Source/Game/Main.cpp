@@ -3,6 +3,7 @@
 
 using namespace std;
 
+#define JSON_READ(value, data) viper::json::Read(value, #data, data)
 
 class Animal {
 public:
@@ -60,6 +61,36 @@ int main(int argc, char* argv[]) {
     if (dog) {
         dog->Fetch();
     }
+    // load the json data from a file
+    string buffer;
+    viper::file::ReadTextFile("json.txt", buffer);
+    // show the contents of the json file (debug)
+    cout << buffer << endl;
+
+    // create json document from the json file contents
+    rapidjson::Document document;
+    viper::json::Load("json.txt", document);
+
+    // read/show the data from the json file
+    string name;
+    int age;
+    float speed;
+    bool isAwake;
+    viper::vec2 position;
+    viper::vec3 color;
+
+    // read the json data
+    viper::json::Read(document, "name", name);
+    viper::json::Read(document, "age", age);
+    viper::json::Read(document, "speed", speed);
+    viper::json::Read(document, "isAwake", isAwake);
+    viper::json::Read(document, "position", position);
+    viper::json::Read(document, "color", color);
+
+    // show the data
+    cout << name << " " << age << " " << speed << " " << isAwake << endl;
+    cout << position.x << " " << position.y << endl;
+    cout << color.r << " " << color.g << " " << color.b << " " << endl;
 
     // initialize engine
     viper::Logger::Warning("initialize engine...");

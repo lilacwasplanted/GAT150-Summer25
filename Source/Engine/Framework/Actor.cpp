@@ -2,6 +2,7 @@
 #include "Renderer/Renderer.h"
 #include "Components/RendererComponent.h"
 
+using namespace std;
 namespace viper {
 	FACTORY_REGISTER(Actor)
 
@@ -40,7 +41,7 @@ namespace viper {
 	void Actor::AddComponent(std::unique_ptr<Component> component)
 	{
 		component->owner = this;
-		m_components.push_back(std::move(component));
+		m_components.push_back(move(component));
 	}
 
 	void Actor::Read(const json::value_t& value) {
@@ -50,5 +51,19 @@ namespace viper {
 		JSON_READ(value, lifespan);
 
 		if (JSON_HAS(value, transform)) transform.Read(JSON_GET(value, transform));
+		//read components
+		if (JSON_HAS(value, components)) {
+			for (auto& componentValue : JSON_GET(value, components).GetArray()) {
+
+				string type;
+				JSON_READ(componentValue, type);
+
+				auto component = Factory::Instance().Create<Component>(type);
+				component->Read(componentValue);
+
+				AddComponent(move(component));
+
+			}
+		}
 	}
 }

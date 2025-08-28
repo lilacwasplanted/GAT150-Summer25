@@ -5,18 +5,22 @@
 #include <rapidjson/istreamwrapper.h>
 #include <iostream>
 
+using namespace std;
+
 namespace viper::json
 {
-    bool Load(const std::string& filename, document_t& document) {
+    bool Load(const string& filename, document_t& document) {
         // read the file into a string
-        std::string buffer;
+        string buffer;
         if (!file::ReadTextFile(filename, buffer)) {
             Logger::Error("Could not read file: {}.", filename);
             return false;
         }
 
+
+        Logger::Info("JSON: {}", buffer);
         // convert the string into a json stream
-        std::stringstream stream(buffer);
+        stringstream stream(buffer);
         rapidjson::IStreamWrapper istream(stream);
 
         // set the json document from the stream
@@ -57,7 +61,7 @@ namespace viper::json
         return true;
     }
 
-    bool json::Read(const value_t& value, const std::string& name, std::string& data)
+    bool json::Read(const value_t& value, const string& name, string& data)
     {
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsString()) {
             Logger::Error("Could not read Json value (string): {}.", name);
@@ -69,7 +73,7 @@ namespace viper::json
         return true;
     }
 
-    bool Read(const value_t& value, const std::string& name, bool& data) {
+    bool Read(const value_t& value, const string& name, bool& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool())
         {
@@ -83,7 +87,7 @@ namespace viper::json
         return true;
     }
 
-    bool Read(const value_t& value, const std::string& name, vec2& data) {
+    bool Read(const value_t& value, const string& name, vec2& data) {
         // check if the value has the "<name>" and is an array with 2 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2) {
             Logger::Error("Could not read Json value (vec2): {}.", name);
@@ -106,7 +110,7 @@ namespace viper::json
         return true;
     }
 
-    bool json::Read(const value_t& value, const std::string& name, vec3& data)
+    bool json::Read(const value_t& value, const string& name, vec3& data)
     {
         // check if the value has the "<name>" and is an array with 3 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 3) {
