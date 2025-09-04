@@ -3,9 +3,9 @@
 
 class Enemy : public viper::Component {
 public:
-	float speed = 200;
-	float fireTimer = 0;
-	float fireTime = 0;
+	float speed;
+	float fireTimer;
+	float fireTime;
 
 public:
 	Enemy() = default;

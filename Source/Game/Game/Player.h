@@ -3,10 +3,10 @@
 
 class Player : public viper::Component {
 public:
-	float speed = 200;
-	float rotationRate = 180;
-	float fireTime = 0.2f;
-	float fireTimer = 0.0f;
+	float speed;
+	float rotationRate;
+	float fireTime;
+	float fireTimer;
 
 public:
 	Player() = default;

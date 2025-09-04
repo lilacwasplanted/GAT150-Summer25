@@ -1,98 +1,134 @@
 {
-  "prototype": [
-    {
-        "name": "player",
-        "tag": "player",
-        "transform": {
-            "position": [
-                640,
-                512
-            ],
-            "rotation": 0,
-            "scale": 2
-        },
-        "components": [
-            {
-                "type": "Player",
-                "speed": 1500.0,
-                "rotationRate": 180,
-                "fireTime": 0.2
-            },
-            {
-                "type": "SpriteRenderer",
-                "texture_name": "textures/purple_01.png"
-            },
-            {
-                "type": "RigidBody",
-                "damping": 1.5,
-                "velocity": [
-                    0,
-                    0
-                ]
-            },
-            {
-                "type": "CircleCollider",
-                "radius": 60
-            }
-        ]
-    },
-    {
-        "name": "enemy",
-        "tag": "enemy",
-        "transform": {
-            "position": [
-                640,
-                512
-            ],
-            "rotation": 0,
-            "scale": 2
-        },
-        "components": [
-            {
-                "type": "Enemy",
-                "speed": 1500.0,
-                "rotationRate": 180,
-                "fireTime": 0.2
-            },
-            {
-                "type": "SpriteRenderer",
-                "texture_name": "textures/blue_01.png"
-            },
-            {
-                "type": "RigidBody",
-                "damping": 1.5,
-                "velocity": [
-                    0,
-                    0
-                ]
-            },
-            {
-                "type": "CircleCollider",
-                "radius": 60
-            }
-        ]
-    }
-  ],
-
-  "actors": [
-    {
-      "name": "sprite",
-        "tag": "background",
-      "persistent": true,
-      "transform": {
-      "position": [
-          640,
-          512
-       ],
-       "rotation": 30,
-       "scale": 2
-      },
-      "components": [
+    "prototype": [
         {
-          "type": "SpriteRenderer",
-          "texture_name": "Textures/space-background.jpg"
+            "name": "player",
+            "tag": "player",
+            "transform": {
+                "position": [
+                    640,
+                    512
+                ],
+                "rotation": 0,
+                "scale": 2
+            },
+            "components": [
+                {
+                    "type": "Player",
+                    "speed": 1500.0,
+                    "rotationRate": 180,
+                    "fireTime": 0.2
+                },
+                {
+                    "type": "SpriteRenderer",
+                    "texture_name": "textures/purple_01.png"
+                },
+                {
+                    "type": "RigidBody",
+                    "damping": 1.5,
+                    "velocity": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "type": "CircleCollider",
+                    "radius": 60
+                }
+            ]
+        },
+
+        {
+            "name": "enemy",
+            "tag": "enemy",
+            "transform": {
+                "position": [
+                    640,
+                    512
+                ],
+                "rotation": 0,
+                "scale": 2
+            },
+            "components": [
+                {
+                    "type": "Enemy",
+                    "speed": 1500.0,
+                    "rotationRate": 180,
+                    "fireTime": 0.2
+                },
+                {
+                    "type": "SpriteRenderer",
+                    "texture_name": "textures/blue_01.png"
+                },
+                {
+                    "type": "RigidBody",
+                    "damping": 1.5,
+                    "velocity": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "type": "CircleCollider",
+                    "radius": 60
+                }
+            ]
+        },
+
+        {
+            "name": "rocket",
+            "tag": "rocket",
+            "transform": {
+                "position": [
+                    640,
+                    512
+                ],
+                "rotation": 0,
+                "scale": 2
+            },
+            "components": [
+                {
+                    "type": "Rocket",
+                    "speed": 1500.0,
+                    "rotationRate": 180
+                },
+                {
+                    "type": "SpriteRenderer",
+                    "texture_name": "textures/missile-2.png"
+                },
+                {
+                    "type": "RigidBody",
+                    "damping": 1.5,
+                    "velocity": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "type": "CircleCollider",
+                    "radius": 60
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ],
+        "actors" : [
+            {
+                "name": "sprite",
+                "tag": "background",
+                "persistent": true,
+                "transform": {
+                    "position": [
+                        640,
+                        512
+                    ],
+                    "rotation": 30,
+                    "scale": 2
+                },
+                "components": [
+                    {
+                        "type": "SpriteRenderer",
+                        "texture_name": "Textures/space-background.jpg"
+                    }
+                ]
+            }
+        ]
 }
