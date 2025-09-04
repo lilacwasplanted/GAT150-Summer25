@@ -10,7 +10,7 @@ namespace viper {
 		Font() = default;
 		~Font();
 
-		bool Load(const std::string& name, float fontSize);
+		bool Load(const string& name, float fontSize);
 
 	private:
 		friend class Text;

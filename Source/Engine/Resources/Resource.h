@@ -9,5 +9,5 @@ namespace viper {
 	};
 
 	template <typename T = Resource>
-	using res_t = std::shared_ptr<T>;
+	using res_t = shared_ptr<T>;
 }

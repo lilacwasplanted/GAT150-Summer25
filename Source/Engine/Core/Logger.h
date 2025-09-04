@@ -28,12 +28,12 @@ namespace viper {
 			s_enabledLevels = levels;
 		}
 
-		static void Log(LogLevel level, const std::string& message) {
+		static void Log(LogLevel level, const string& message) {
 
 			if ((s_enabledLevels & level) == LogLevel::None) return;
 
-			std::string prefix;
-			std::string color;
+			 string prefix;
+			 string color;
 
 			switch (level) {
 			case LogLevel::Info:
@@ -44,45 +44,45 @@ namespace viper {
 				prefix = "[WARNING] ";
 				color = "\033[33m"; // Yellow
 				break;
-			case LogLevel::Error:   
+			case LogLevel::Error:  
 				prefix = "[ERROR] ";
 				color = "\033[31m"; // Red
 				break;
-			case LogLevel::Debug:   
+			case LogLevel::Debug:  
 				prefix = "[DEBUG] ";
 				color = "\033[36m"; // Cyan
 				break;
-			default:                
+			default:        
 				prefix = "[UNKNOWN] "; 
 				color = "\033[0m"; // Reset
 				break;
 			}
 
 			
-			const std::string reset = "\033[0m";
-			std::string output = color + prefix + message + reset + "\n";
+			const string reset = "\033[0m";
+			 string output = color + prefix + message + reset + "\n";
 
-			std::cerr << output;
+			 cerr << output;
 		}
 
 		template<typename... Args>
-		static void Info(std::format_string<Args...> fmt, Args&&... args) {
-			Log(LogLevel::Info, std::format(fmt, std::forward<Args>(args)...));
+		static void Info( format_string<Args...> fmt, Args&&... args) {
+			Log(LogLevel::Info, format(fmt, forward<Args>(args)...));
 		}
 
 		template<typename... Args>
-		static void Error(std::format_string<Args...> fmt, Args&&... args) {
-			Log(LogLevel::Error, std::format(fmt, std::forward<Args>(args)...));
+		static void Error( format_string<Args...> fmt, Args&&... args) {
+			Log(LogLevel::Error, format(fmt, forward<Args>(args)...));
 		}
 
 		template<typename... Args>
-		static void Warning(std::format_string<Args...> fmt, Args&&... args) {
-			Log(LogLevel::Warning, std::format(fmt, std::forward<Args>(args)...));
+		static void Warning( format_string<Args...> fmt, Args&&... args) {
+			Log(LogLevel::Warning, format(fmt, forward<Args>(args)...));
 		}
 
 		template<typename... Args>
-		static void Debug(std::format_string<Args...> fmt, Args&&... args) {
-			Log(LogLevel::Debug, std::format(fmt, std::forward<Args>(args)...));
+		static void Debug( format_string<Args...> fmt, Args&&... args) {
+			Log(LogLevel::Debug, format(fmt, forward<Args>(args)...));
 		}
 
 	private:

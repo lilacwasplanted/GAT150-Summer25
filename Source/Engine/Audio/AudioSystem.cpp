@@ -1,5 +1,6 @@
 #include "AudioSystem.h"
 #include "AudioClip.h"
+using namespace std;
 
 namespace viper {
 	/// <summary>
@@ -52,9 +53,9 @@ namespace viper {
 	/// <param name="filename">The path to the audio file to load.</param>
 	/// <param name="name">The name to associate with the loaded sound. If empty, the filename is used as the key.</param>
 	/// <returns>Returns false if the sound could not be added (e.g., if the name already exists or loading fails).</returns>
-	bool AudioSystem::AddSound(const std::string& filename, const std::string& name)
+	bool AudioSystem::AddSound(const string& filename, const string& name)
 	{
-		std::string key = (name.empty()) ? filename : name;
+		string key = (name.empty()) ? filename : name;
 		key = tolower(key);
 
 		// check if key exists in sounds map
@@ -74,8 +75,8 @@ namespace viper {
 		return true;
 	}
 
-	bool AudioSystem::PlaySound(const std::string& name) {
-		std::string key = name;
+	bool AudioSystem::PlaySound(const string& name) {
+		string key = name;
 		key = tolower(key);
 
 		// check if sound exists in sounds map

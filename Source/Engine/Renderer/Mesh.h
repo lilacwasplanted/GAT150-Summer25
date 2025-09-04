@@ -8,14 +8,14 @@ namespace viper {
 	class Mesh : public Resource {
 	public:
 		Mesh() = default;
-		Mesh(const std::vector<vec2> points, const vec3& color) :
+		Mesh(const vector<vec2> points, const vec3& color) :
 			m_points{ points },
 			m_color{ color }
 		{
 			CalculateRadius();
 		}
 
-		bool Load(const std::string& filename);
+		bool Load(const string& filename);
 
 		void Draw(class Renderer& renderer, const vec2& position, float rotation, float scale);
 		void Draw(class Renderer& renderer, const Transform& transform);
@@ -27,7 +27,7 @@ namespace viper {
 
 	private:
 		float m_radius{ 0 };
-		std::vector<vec2> m_points;
+		 vector<vec2> m_points;
 		vec3 m_color{ 1, 1, 1 };
 	};
 }

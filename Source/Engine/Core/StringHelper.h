@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+using namespace std;
 
 namespace viper {
 	/// <summary>
@@ -7,8 +8,8 @@ namespace viper {
 	/// </summary>
 	/// <param name="str">The input string to convert.</param>
 	/// <returns>A new string with all characters converted to lowercase.</returns>
-	inline std::string tolower(const std::string& str) {
-		std::string result = str;
+	inline string tolower(const string& str) {
+		 string result = str;
 
 		// convert to lowercase
 		for (char& c : result) {
@@ -23,8 +24,8 @@ namespace viper {
 	/// </summary>
 	/// <param name="str">The input string to convert.</param>
 	/// <returns>A new string with all characters converted to uppercase.</returns>
-	inline std::string toupper(const std::string& str) {
-		std::string result = str;
+	inline string toupper(const string& str) {
+		string result = str;
 
 		// convert to lowercase
 		for (char& c : result) {

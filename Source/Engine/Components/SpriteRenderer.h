@@ -1,10 +1,13 @@
 #pragma once
 #include "RendererComponent.h"
 
+using namespace std;
+
 namespace viper {
 	class SpriteRenderer : public RendererComponent {
 	public:
-		std::string textureName;
+		 string textureName;
+		 CLASS_PROTOTYPE(SpriteRenderer)
 
 	public:
 		void Update(float dt) override;

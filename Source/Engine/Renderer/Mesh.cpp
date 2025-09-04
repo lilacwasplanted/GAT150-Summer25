@@ -2,15 +2,15 @@
 #include "Renderer.h"
 
 namespace viper {
-	bool Mesh::Load(const std::string& filename) {
+	bool Mesh::Load(const string& filename) {
 
-		std::string buffer;
+		 string buffer;
 		if (!file::ReadTextFile(filename, buffer)) {
 			Logger::Error("Could not read file: {}", filename);
 			return false;
 		}
 
-		std::stringstream stream(buffer);
+		 stringstream stream(buffer);
 
 		// read color
 		stream >> m_color;

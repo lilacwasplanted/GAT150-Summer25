@@ -36,13 +36,13 @@ namespace viper {
 		const vec2& GetPreviousMousePosition() const { return m_prevMousePosition; }
 
 	private:
-		std::vector<bool> m_keyboardState;
-		std::vector<bool> m_prevKeyboardState;
+		 vector<bool> m_keyboardState;
+		 vector<bool> m_prevKeyboardState;
 
 		viper::vec2 m_mousePosition{ 0, 0 };
 		viper::vec2 m_prevMousePosition{ 0, 0 };
 
-		std::array<bool, 3> m_mouseButtonState{ false, false, false };
-		std::array<bool, 3> m_prevMouseButtonState{ false, false, false };
+		 array<bool, 3> m_mouseButtonState{ false, false, false };
+		 array<bool, 3> m_prevMouseButtonState{ false, false, false };
 	};
 }

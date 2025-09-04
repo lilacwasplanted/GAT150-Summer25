@@ -2,6 +2,7 @@
 #include <fmod.hpp>
 #include <string>
 #include <map>
+using namespace std;
 
 namespace viper {
 	class AudioSystem {
@@ -13,8 +14,8 @@ namespace viper {
 
 		void Update();
 
-		bool AddSound(const std::string& filename, const std::string& name = "");
-		bool PlaySound(const std::string& name);
+		bool AddSound(const string& filename, const string& name = "");
+		bool PlaySound(const string& name);
 		bool PlaySound(class AudioClip& audioClip);
 
 	private:
@@ -24,7 +25,7 @@ namespace viper {
 		friend class AudioClip;
 
 		FMOD::System* m_system = nullptr;
-		std::map<std::string, FMOD::Sound*> m_sounds;
+		map<string, FMOD::Sound*> m_sounds;
 	};
 
 }

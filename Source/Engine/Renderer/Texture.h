@@ -11,7 +11,7 @@ namespace viper {
 		Texture() = default;
 		~Texture();
 
-		bool Load(const std::string& filename, class Renderer& renderer);
+		bool Load(const string& filename, class Renderer& renderer);
 
 		vec2 GetSize();
 

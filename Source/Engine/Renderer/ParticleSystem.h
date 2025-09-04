@@ -30,6 +30,6 @@ namespace viper {
 		Particle* GetFreeParticle();
 
 	private:
-		std::vector<Particle> m_particles;
+		 vector<Particle> m_particles;
 	};
 }

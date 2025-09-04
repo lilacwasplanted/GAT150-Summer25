@@ -13,31 +13,31 @@ namespace viper {
 		void Clear() { m_resources.clear(); }
 
 		template<typename T, typename ... Args>
-		requires std::derived_from<T, Resource>
-		res_t<T> Get(const std::string& name, Args&& ... args);
+		requires derived_from<T, Resource>
+		res_t<T> Get(const string& name, Args&& ... args);
 
 		template<typename T, typename ... Args>
-		requires std::derived_from<T, Resource>
-		res_t<T> GetWithID(const std::string& id, const std::string& name, Args&& ... args);
+		requires derived_from<T, Resource>
+		res_t<T> GetWithID(const string& id, const string& name, Args&& ... args);
 
 	private:
 		friend class Singleton<ResourceManager>;
 		ResourceManager() = default;
 
 	private:
-		std::map<std::string, res_t<Resource>> m_resources;
+		 map< string, res_t<Resource>> m_resources;
 	};
 
 	template<typename T, typename ... Args>
-	requires std::derived_from<T, Resource>
-	inline res_t<T> ResourceManager::Get(const std::string& name, Args&& ... args) {
-		return GetWithID<T>(name, name, std::forward<Args>(args)...);
+	requires derived_from<T, Resource>
+	inline res_t<T> ResourceManager::Get(const string& name, Args&& ... args) {
+		return GetWithID<T>(name, name, forward<Args>(args)...);
 	}
 
 	template<typename T, typename ...Args>
-	requires std::derived_from<T, Resource>
-	inline res_t<T> ResourceManager::GetWithID(const std::string& id, const std::string& name, Args && ...args)	{
-		std::string key = tolower(id);
+	requires derived_from<T, Resource>
+	inline res_t<T> ResourceManager::GetWithID(const string& id, const string& name, Args && ...args)	{
+		 string key = tolower(id);
 
 		auto iter = m_resources.find(key);
 		// check if exists
@@ -45,7 +45,7 @@ namespace viper {
 			// get value in iterator
 			auto base = iter->second;
 			// cast to data type T
-			auto resource = std::dynamic_pointer_cast<T>(base);
+			auto resource = dynamic_pointer_cast<T>(base);
 			// check if cast was successful
 			if (resource == nullptr) {
 				Logger::Error("Resource type mismatch: {}", key);
@@ -57,8 +57,8 @@ namespace viper {
 		}
 
 		// load resource
-		res_t<T> resource = std::make_shared<T>();
-		if (resource->Load(name, std::forward<Args>(args)...) == false) {
+		res_t<T> resource = make_shared<T>();
+		if (resource->Load(name, forward<Args>(args)...) == false) {
 			Logger::Error("Could not load resource: {}", name);
 			return res_t<T>();
 		}

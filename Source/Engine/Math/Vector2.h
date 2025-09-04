@@ -2,6 +2,7 @@
 #include "Math.h"
 #include <cassert>
 #include <iostream>
+using namespace std;
 
 namespace viper {
 	template<typename T>
@@ -15,7 +16,7 @@ namespace viper {
 		Vector2() = default;
 		Vector2(T x, T y) : x{ x }, y{ y } {}
 
-		T  operator [] (unsigned int index) const { assert(index < 2); return (&x)[index]; }
+		T operator [] (unsigned int index) const { assert(index < 2); return (&x)[index]; }
 		T& operator [] (unsigned int index) { assert(index < 2); return (&x)[index]; }
 
 		Vector2 operator + (const Vector2& v) const { return Vector2{ x + v.x, y + v.y }; }
@@ -120,41 +121,41 @@ namespace viper {
 	};
 
 	template<typename T> 
-	std::ostream& operator << (std::ostream& stream, const Vector2<T>& v) {
+	 ostream& operator << ( ostream& stream, const Vector2<T>& v) {
 		stream << "{" << v.x << ", " << v.y << "}";
 
 		return stream;
 	}
 
 	template<typename T>
-	std::istream& operator >> (std::istream& stream, Vector2<T>& v) {
+	 istream& operator >> ( istream& stream, Vector2<T>& v) {
 		char ch = '\0';
 
 		// { x, y }
 
 		// {
-		if (!(stream >> std::ws >> ch) || ch != '{') {
-			stream.setstate(std::ios::failbit);
+		if (!(stream >> ws >> ch) || ch != '{') {
+			stream.setstate( ios::failbit);
 			return stream;
 		}
 		// x
-		if (!(stream >> std::ws >> v.x)) {
-			stream.setstate(std::ios::failbit);
+		if (!(stream >> ws >> v.x)) {
+			stream.setstate( ios::failbit);
 			return stream;
 		}
 		// ,
-		if (!(stream >> std::ws >> ch) || ch != ',') {
-			stream.setstate(std::ios::failbit);
+		if (!(stream >> ws >> ch) || ch != ',') {
+			stream.setstate( ios::failbit);
 			return stream;
 		}
 		// y
-		if (!(stream >> std::ws >> v.y)) {
-			stream.setstate(std::ios::failbit);
+		if (!(stream >> ws >> v.y)) {
+			stream.setstate( ios::failbit);
 			return stream;
 		}
 		// }
-		if (!(stream >> std::ws >> ch) || ch != '}') {
-			stream.setstate(std::ios::failbit);
+		if (!(stream >> ws >> ch) || ch != '}') {
+			stream.setstate( ios::failbit);
 			return stream;
 		}
 

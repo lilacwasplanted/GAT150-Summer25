@@ -8,6 +8,10 @@ namespace viper {
 		float damping{ 0 };
 
 	public:
+		CLASS_PROTOTYPE(RigidBody)
+
 		void Update(float dt) override;
+
+		void Read(const json::value_t& value) override;
 	};
 }

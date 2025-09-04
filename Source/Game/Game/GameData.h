@@ -3,6 +3,6 @@
 #include <vector>
 
 namespace GameData {
-	extern std::vector<viper::vec2> shipPoints;
-	extern std::vector<viper::vec2> enemyPoints;
+	extern vector<viper::vec2> shipPoints;
+	extern vector<viper::vec2> enemyPoints;
 }

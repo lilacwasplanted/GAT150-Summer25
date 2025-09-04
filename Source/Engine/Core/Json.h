@@ -24,5 +24,5 @@ namespace viper::json {
 	bool Read(const value_t& value, const string& name, float& data);
 	bool Read(const value_t& value, const string& name, string& data);
 	bool Read(const value_t& value, const string& name, vec2& data);
-	bool Read(const value_t& value, const string& name, vec3& data);
+	bool Read(const value_t& value, const string& name, vec3& data, bool required);
 }

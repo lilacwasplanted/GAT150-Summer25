@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
+
 namespace viper::math {
 	constexpr float pi = 3.1415926535897932384626433832795f;
 	constexpr float twoPi = 2 * pi;
@@ -46,7 +47,7 @@ namespace viper::math {
 	/// <returns>The wrapped value within the range [min, max).</returns>
 	inline float wrap(float value, float min, float max) {
 		float range = max - min;						// calculate range of wrap
-		float result = std::fmodf(value - min, range);	// shift value so range starts at 0
+		float result = fmodf(value - min, range);	// shift value so range starts at 0
 		if (result < 0) result += range;				// wrap forward if result is negative (value < min)
 
 		return min + result; // shift the result back to [min, max) range

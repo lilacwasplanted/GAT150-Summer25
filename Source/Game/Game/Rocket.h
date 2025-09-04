@@ -8,6 +8,8 @@ public:
 public:
 	Rocket() = default;
 
+	CLASS_PROTOTYPE(Rocket)
+
 	void Update(float dt) override;
 	void OnCollision(viper::Actor* other);
 };

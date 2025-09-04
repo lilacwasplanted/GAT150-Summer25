@@ -12,27 +12,27 @@ namespace viper {
 
 	class Scene : public Serializable {
 	public:
-		Scene(Game* game) : m_game{ game } {}
+		Scene(Game* game) : _game{ game } {}
 
 		void Read(const json::value_t& value) override;
 
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 
-		void AddActor(std::unique_ptr<Actor> actor);
-		void RemoveAllActors();
+		void AddActor( unique_ptr<Actor> actor);
+		void RemoveAllActors(bool force = false);
 
 		template<typename T = Actor>
-		T* GetActorByName(const std::string& name);
+		T* GetActorByName(const string& name);
 
 		template<typename T = Actor>
-		std::vector<T*> GetActorsByTag(const std::string& tag);
+		 vector<T*> GetActorsByTag(const string& tag);
 
-		Game* GetGame() { return m_game; }
+		Game* GetGame() { return _game; }
 
 	private:
-		Game* m_game{ nullptr };
-		std::list<std::unique_ptr<Actor>> m_actors;
+		Game* _game{ nullptr };
+		 list< unique_ptr<Actor>> _actors;
 
 	};
 
@@ -43,9 +43,9 @@ namespace viper {
 	/// <param name="name">The name of the actor to search for (case-insensitive).</param>
 	/// <returns>A pointer to the actor cast to type T if found and the cast is successful; otherwise, nullptr.</returns>
 	template<typename T>
-	inline T* Scene::GetActorByName(const std::string& name)
+	inline T* Scene::GetActorByName(const string& name)
 	{
-		for (auto& actor : m_actors) {
+		for (auto& actor : _actors) {
 			if (viper::tolower(actor->name) == viper::tolower(name)) {
 				T* object = dynamic_cast<T*>(actor.get());
 				if (object) {
@@ -64,10 +64,10 @@ namespace viper {
 	/// <param name="tag">The tag to match against each actor's tag (case-insensitive).</param>
 	/// <returns>A vector of pointers to actors of type T whose tag matches the specified tag.</returns>
 	template<typename T>
-	inline std::vector<T*> Scene::GetActorsByTag(const std::string& tag)
+	inline vector<T*> Scene::GetActorsByTag(const string& tag)
 	{
-		std::vector<T*> results;
-		for (auto& actor : m_actors) {
+		 vector<T*> results;
+		for (auto& actor : _actors) {
 			if (viper::tolower(actor->tag) == viper::tolower(tag)) {
 				T* object = dynamic_cast<T*>(actor.get());
 				if (object) {

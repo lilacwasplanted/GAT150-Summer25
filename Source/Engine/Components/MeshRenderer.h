@@ -4,7 +4,9 @@
 namespace viper {
 	class MeshRenderer : public RendererComponent {
 	public:
-		std::string meshName;
+		 string meshName;
+
+		 CLASS_PROTOTYPE(MeshRenderer)
 
 	public:
 		void Update(float dt) override;

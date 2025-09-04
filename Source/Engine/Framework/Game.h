@@ -11,16 +11,16 @@ namespace viper {
 		virtual void Draw(class Renderer& renderer) = 0;
 		virtual void Shutdown() = 0;
 
-		void AddPoints(int points) { m_score += points; }
-		int GetPoints() const { return m_score; }
+		void AddPoints(int points) { _score += points; }
+		int GetPoints() const { return _score; }
 
-		void SetLives(int lives) { m_lives = lives; }
-		int GetLives() const { return m_lives; }
+		void SetLives(int lives) { _lives = lives; }
+		int GetLives() const { return _lives; }
 
 	protected:
-		int m_score{ 0 };
-		int m_lives{ 0 };
+		int _score{ 0 };
+		int _lives{ 0 };
 
-		std::unique_ptr<class Scene> m_scene;
+		 unique_ptr<class Scene>_scene;
 	};
 }

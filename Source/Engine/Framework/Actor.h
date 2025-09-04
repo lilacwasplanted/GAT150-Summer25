@@ -7,11 +7,14 @@
 #include <memory>
 #include <vector>
 
+using namespace std;
+
 namespace viper {
 	class Actor : public Object {
 	public:
-		std::string tag;
+		string tag;
 
+		bool persistent{ false };
 		bool destroyed{ false };
 		float lifespan{ 0 };
 
@@ -23,6 +26,11 @@ namespace viper {
 		Actor(const Transform& transform) :
 			transform{ transform }
 		{}
+		Actor(const Actor& other);
+
+
+
+		CLASS_PROTOTYPE(Actor)
 
 		void Read(const json::value_t& value) override;
 
@@ -32,24 +40,24 @@ namespace viper {
 		virtual void OnCollision(Actor* other) {}
 
 		// components
-		void AddComponent(std::unique_ptr<Component> component);
+		void AddComponent(unique_ptr<Component> component);
 
 		template<typename T>
 		T* GetComponent();
 
 		template<typename T>
-		std::vector<T*> GetComponents();
+		vector<T*> GetComponents();
 
 
 	protected:
-		std::vector<std::unique_ptr<Component>> m_components;
+		vector<unique_ptr<Component>> _components;
 	};
 
 
 	template<typename T>
 	inline T* Actor::GetComponent()
 	{
-		for (auto& component : m_components) {
+		for (auto& component : _components) {
 			auto result = dynamic_cast<T*>(component.get());
 			if (result) return result;
 		}
@@ -58,11 +66,11 @@ namespace viper {
 	}
 
 	template<typename T>
-	inline std::vector<T*> Actor::GetComponents()
+	inline vector<T*> Actor::GetComponents()
 	{
-		std::vector<T*> results;
+		vector<T*> results;
 
-		for (auto& component : m_components) {
+		for (auto& component : _components) {
 			auto result = dynamic_cast<T*>(component.get());
 			if (result) {
 				results.push_back(result);

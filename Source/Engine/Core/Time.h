@@ -4,7 +4,7 @@
 namespace viper {
 	class Time {
 	private:
-		using clock = std::chrono::high_resolution_clock;
+		using clock = chrono::high_resolution_clock;
 
 	public:
 		Time() {
