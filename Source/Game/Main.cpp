@@ -15,10 +15,6 @@ int main(int argc, char* argv[]) {
   // show the contents of the json file (debug)
   cout << buffer << endl;
 
-  // create json document from the json file contents
-  rapidjson::Document document;
-  viper::json::Load("json.txt", document);
-
   // initialize engine
   viper::Logger::Warning("initialize engine ...");
   viper::GetEngine().Initialize();

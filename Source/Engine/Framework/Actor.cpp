@@ -17,6 +17,18 @@ namespace viper {
 			AddComponent(move(clone));
 		}
 	}
+	void Actor::Start()
+	{
+		for (auto& component : _components) {
+			component->Start();
+		}
+	}
+	void Actor::Destroyed()
+	{
+		for (auto& component : _components) {
+			component->Destroyed();
+		}
+	}
 	void Actor::Update(float dt)
 	{
 		if (destroyed) return;
@@ -80,4 +92,5 @@ namespace viper {
 			}
 		}
 	}
+
 }

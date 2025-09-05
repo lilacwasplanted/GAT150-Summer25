@@ -43,7 +43,7 @@ namespace viper {
 			_prototype{ move(proto) }
 		{ }
 		unique_ptr<Object> Create() override {
-			return make_unique<T>();
+			return _prototype->Clone();
 		}
 	private:
 		unique_ptr<T> _prototype;

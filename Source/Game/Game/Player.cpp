@@ -6,6 +6,11 @@
 
 FACTORY_REGISTER(Player)
 
+void Player::Read(const viper::json::value_t& value)
+{ 
+    viper::Object::Read(value);
+}
+
 void Player::Update(float dt)
 {
   
@@ -85,4 +90,6 @@ void Player::OnCollision(viper::Actor* other)
     dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
   }
 }
+
+
 

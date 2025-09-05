@@ -12,6 +12,7 @@ public:
 	Player() = default;
 
 	CLASS_PROTOTYPE(Player)
+	void Read(const viper::json::value_t& value) override;
 
 	void Update(float dt) override;
 	void OnCollision(class viper::Actor* other);

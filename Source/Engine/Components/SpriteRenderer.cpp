@@ -1,10 +1,15 @@
 #include "EnginePCH.h"
 #include "SpriteRenderer.h"
 #include "Renderer/Renderer.h"
+#include "Engine.h"
 
 namespace viper {
 	FACTORY_REGISTER(SpriteRenderer)
 
+		void SpriteRenderer::Start()
+	{
+		texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+	}
 	void SpriteRenderer::Update(float dt) {
 		//
 	}
